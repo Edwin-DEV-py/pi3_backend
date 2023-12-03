@@ -25,6 +25,7 @@ class Manager_account(BaseUserManager):
             last_names = last_names,
             email = email,
             phone = phone,
+            avatar=None
         )
         
         user.set_password(password)
