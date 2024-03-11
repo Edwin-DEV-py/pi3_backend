@@ -13,8 +13,6 @@ from django.conf import settings
 from .serializers import *
 from .models import User
 
-
-
 #registro de usuario en la API   
 class RegisterView(APIView):
     
@@ -26,7 +24,7 @@ class RegisterView(APIView):
             user = User.objects.create_user(**serializer.validated_data)
             user.save()
             
-            return Response({'message':'Usuario Registrado, verifica tu cuenta'}, status=status.HTTP_201_CREATED)
+            return Response({'message':'Usuario Registrado'}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
