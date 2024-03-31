@@ -14,6 +14,15 @@ class CalendarView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     
+    def get(self, request):
+        
+        user_id = request.user.id
+        
+        events = CalendarModel.objects.filter(user=user_id)
+        serializer = CalendarSerializer(events, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
     def post(self, request):
         
         #user_id = User.objects.get(id=request.user.i)
@@ -27,5 +36,6 @@ class CalendarView(APIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             except ValueError as e:
                 return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            
         else:
             return Response(serializer.errors)
