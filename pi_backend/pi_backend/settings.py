@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'UserApp',
-    'CalendarApp'
+    'CalendarApp',
+    'FolderApp',
+    'FileApp'
 ]
 
 MIDDLEWARE = [
