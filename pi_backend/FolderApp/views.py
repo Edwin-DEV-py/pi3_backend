@@ -19,10 +19,10 @@ class GetFolderByParentId(APIView):
         
         user = request.user
         
-        folder = FolderModel.objects.filter(parentFolder=parentFolder, userId=user)
+        folder = FolderModel.objects.filter(parentFolder=parentFolder, user=user)
         serializer_folder = FolderSerializer(folder, many=True)
         
-        files = FileModel.objects.filter(folderParent=parentFolder, userId=user)
+        files = FileModel.objects.filter(folderParent=parentFolder, user=user)
         serializer_files = FileSerializer(files, many=True)
         
         combined_data = []
@@ -42,3 +42,14 @@ class GetFolderByParentId(APIView):
             combined_data.append(file_data)
         
         return Response({'data': combined_data})
+    
+    def post(self,request,parentFolder=0):
+        
+        request.data['user'] = request.user
+        
+        serializer = FolderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
