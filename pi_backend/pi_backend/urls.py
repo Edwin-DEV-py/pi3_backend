@@ -24,4 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include('UserApp.urls')),
     path('calendarApi/',include('CalendarApp.urls')),
+    path('folderApi/',include('FolderApp.urls')),
+    path('fileApi/',include('FileApp.urls')),
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
